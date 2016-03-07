@@ -82,7 +82,7 @@ then the returned query object would be:
      
 
 ```javascript
-return Log.search(_.merge(req.query, {
+return Log.querySearch(_.merge(req.query, {
     customQuery: {
         'meta.audit': true
     }
@@ -93,23 +93,23 @@ will return:
 
 ```javascript
 {
-	count: 2,
-	data: [
-		{
-			level: 'info',
-			message: 'New message',
-			meta: {
-				auditFlag: 'Resolver'
-			}
-		},
-		{
-			level: 'error',
-			message: 'Second message',
-			meta: {
-				auditFlag: 'Incorrect'
-			}
-		}
-	]
+    count: 2,
+    data: [
+        {
+            level: 'info',
+            message: 'New message',
+            meta: {
+                auditFlag: 'Resolver'
+            }
+        },
+        {
+            level: 'error',
+            message: 'Second message',
+            meta: {
+                auditFlag: 'Incorrect'
+            }
+        }
+    ]
 }
 ```
 
