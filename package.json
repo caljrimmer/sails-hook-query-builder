@@ -1,6 +1,6 @@
 {
   "name": "sails-hook-query-builder",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "description": "Query builder for sails",
   "scripts": {
     "lint": "jscs . && eslint .",
