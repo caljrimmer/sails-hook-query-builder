@@ -1,0 +1,33 @@
+{
+  "name": "sails-hook-query-builder",
+  "version": "0.0.1",
+  "description": "Query builder for sails",
+  "scripts": {
+    "lint": "jscs . && eslint .",
+    "unit": "NODE_ENV=test mocha ./test/index.js --timeout 30000",
+    "test": "npm run lint && npm run unit"
+  },
+  "main": "index.js",
+  "sails": {
+    "isHook": true
+  },
+  "dependencies": {
+    "sails": "^0.11.2",
+    "lodash": "^3.10.1"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "eslint": "^1.9.0",
+    "jscs": "^2.5.1",
+    "mocha": "^2.3.3",
+    "mocha-bamboo-reporter": "^1.1.0",
+    "sinon": "^1.17.3",
+    "sinon-chai": "^2.8.0"
+  },
+  "author": "Callum Rimmer <callum@deadtrendy.co.uk>",
+  "repository": {
+	"type": "git",
+	"url": "https://github.com/caljrimmer/sails-hook-query-builder.git"    
+  },  
+  "license": "MIT"
+}

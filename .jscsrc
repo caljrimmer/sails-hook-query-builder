@@ -1,0 +1,13 @@
+{
+  "preset": "node-style-guide",
+  "disallowDanglingUnderscores": null,
+  "disallowMultipleVarDecl": null,
+  "disallowSpacesInFunction": null,
+  "disallowTrailingWhitespace": true,
+  "maximumLineLength": null,
+  "requireCapitalizedComments": null,
+  "requireLineFeedAtFileEnd": true,
+  "requireSpaceAfterLineComment": null,
+  "requireTrailingComma": null,
+  "validateIndentation": null
+}
