@@ -28,6 +28,8 @@ module.exports = {
     }
 };
 ```
+  
+## Build query
 
 This will allow queries to be built with:
 
@@ -75,6 +77,41 @@ then the returned query object would be:
     sort: 'user'
 }
 ``` 
+
+## Search via waterline from query 
+     
+
+```javascript
+return Log.search(_.merge(req.query, {
+    customQuery: {
+        'meta.audit': true
+    }
+})); 
+```
+
+will return:
+
+```javascript
+{
+	count: 2,
+	data: [
+		{
+			level: 'info',
+			message: 'New message',
+			meta: {
+				auditFlag: 'Resolver'
+			}
+		},
+		{
+			level: 'error',
+			message: 'Second message',
+			meta: {
+				auditFlag: 'Incorrect'
+			}
+		}
+	]
+}
+```
 
 ## Native request queries
 

@@ -54,17 +54,37 @@ function bindQueryBuilder (model) {
     return queryBuilder;
 }
 
+function bindSearch (model) {
+	var queryBuilder = bindQueryBuilder(model);
+	function search (query) {
+		var newQuery = queryBuilder(query);
+		model.find(newQuery)
+           .then(function (data) {
+               return model.count(newQuery)
+                   .then(function(count) {
+                       return {
+                           count: count,
+                           data: data
+                       }
+                   })
+           });
+	}
+	model.search = search;
+}
+
 module.exports = function(sails) {
 
     function patch() {
         const keys = Object.keys(sails.models);
         keys.forEach(function(v) {
             bindQueryBuilder(sails.models[v]);
+			bindSearch(sails.models[v]);
         });
     }
 
     return {
         builder: bindQueryBuilder,
+		search: bindSearch,
         initialize: function(done) {
 
             //later on wait for this events
