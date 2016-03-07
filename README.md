@@ -1,5 +1,8 @@
 # Sails Hook Query Builder
 
+[![build status](https://travis-ci.org/caljrimmer/sails-hook-query-builder.svg?branch=master&style=flat-square)](https://travis-ci.org/caljrimmer/sails-hook-query-builder)
+
+
 Query builder adds a static method to all models in a sails app that allows creates a query which will paginate, search and sort.
 
 ## To use 
