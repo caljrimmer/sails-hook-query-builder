@@ -1,0 +1,105 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'publish' ]
+2 info using npm@2.14.7
+3 info using node@v5.2.0
+4 verbose publish [ '.' ]
+5 silly cache add args [ '.', null ]
+6 verbose cache add spec .
+7 silly cache add parsed spec Result {
+7 silly cache add   raw: '.',
+7 silly cache add   scope: null,
+7 silly cache add   name: null,
+7 silly cache add   rawSpec: '.',
+7 silly cache add   spec: '/Applications/MAMP/htdocs/sails-hook-query-builder',
+7 silly cache add   type: 'directory' }
+8 verbose addLocalDirectory /Users/callumj/.npm/sails-hook-query-builder/1.0.0/package.tgz not in flight; packing
+9 verbose tar pack [ '/Users/callumj/.npm/sails-hook-query-builder/1.0.0/package.tgz',
+9 verbose tar pack   '/Applications/MAMP/htdocs/sails-hook-query-builder' ]
+10 verbose tarball /Users/callumj/.npm/sails-hook-query-builder/1.0.0/package.tgz
+11 verbose folder /Applications/MAMP/htdocs/sails-hook-query-builder
+12 info prepublish sails-hook-query-builder@1.0.0
+13 verbose addLocalTarball adding from inside cache /Users/callumj/.npm/sails-hook-query-builder/1.0.0/package.tgz
+14 silly cache afterAdd sails-hook-query-builder@1.0.0
+15 verbose afterAdd /Users/callumj/.npm/sails-hook-query-builder/1.0.0/package/package.json not in flight; writing
+16 verbose afterAdd /Users/callumj/.npm/sails-hook-query-builder/1.0.0/package/package.json written
+17 silly publish { name: 'sails-hook-query-builder',
+17 silly publish   version: '1.0.0',
+17 silly publish   description: 'Query builder for sails',
+17 silly publish   scripts:
+17 silly publish    { lint: 'jscs . && eslint .',
+17 silly publish      unit: 'NODE_ENV=test mocha ./test/index.js --timeout 30000',
+17 silly publish      test: 'npm run lint && npm run unit' },
+17 silly publish   main: 'index.js',
+17 silly publish   sails: { isHook: true },
+17 silly publish   dependencies: { sails: '^0.11.2', lodash: '^3.10.1' },
+17 silly publish   devDependencies:
+17 silly publish    { chai: '^3.5.0',
+17 silly publish      eslint: '^1.9.0',
+17 silly publish      jscs: '^2.5.1',
+17 silly publish      mocha: '^2.3.3',
+17 silly publish      'mocha-bamboo-reporter': '^1.1.0',
+17 silly publish      sinon: '^1.17.3',
+17 silly publish      'sinon-chai': '^2.8.0' },
+17 silly publish   author: { name: 'Callum Rimmer', email: 'callum@deadtrendy.co.uk' },
+17 silly publish   repository:
+17 silly publish    { type: 'git',
+17 silly publish      url: 'git+https://github.com/caljrimmer/sails-hook-query-builder.git' },
+17 silly publish   license: 'MIT',
+17 silly publish   readme: '# Sails Hook Query Builder\n\n[![build status](https://travis-ci.org/caljrimmer/sails-hook-query-builder.svg?branch=master&style=flat-square)](https://travis-ci.org/caljrimmer/sails-hook-query-builder)\n\n\nQuery builder adds a static method to all models in a sails app that allows creates a query which will paginate, search and sort.\n\n## To use \n\n- Add "sails-hook-cws-query-builder" to package.json of project. Sails will automatically pick this up when invoking.\n- Add searchable parameter to models e.g. in models/Log.js\n\n```javascript\nmodule.exports = {\n    connection: \'mongo\',\n    tableName: \'log\',\n    searchable: [\'level\',\'message\',\'meta.auditFlag\'],\n    attributes: {\n        message: {\n            type: \'string\'\n        },\n        level: {\n            type: \'string\'\n        },\n        meta: {\n            type: \'json\'\n        }\n    }\n};\n```\n  \n## Build query\n\nThis will allow queries to be built with:\n\n```javascript\nvar query = Log.queryBuilder(_.merge(req.query, {\n    customQuery: {\n        \'meta.audit\': true\n    }\n})); \n\n//Expected query items are search, limit, skip and sort.\n//**CustomQuery** are queries not associated with search, pagination or sort\n```\n\nif req url was:\n\n```javascript\n/log?search=smith&limit=1&sort=user\n```\n\nthen the returned query object would be:\n\n```javascript\n{\n    where : {\n        or : [\n            {\n                message : {\n                    contains : \'smith\'\n                }\n            },\n            {\n                level : {\n                    contains : \'smith\'\n                }\n            },\n            {\n                meta.auditFlag : {\n                    contains : \'smith\'\n                }\n            },\n        ]\n    },\n    limit: 1,\n    sort: \'user\'\n}\n``` \n\n## Search via waterline from query \n     \n\n```javascript\nreturn Log.search(_.merge(req.query, {\n    customQuery: {\n        \'meta.audit\': true\n    }\n})); \n```\n\nwill return:\n\n```javascript\n{\n\tcount: 2,\n\tdata: [\n\t\t{\n\t\t\tlevel: \'info\',\n\t\t\tmessage: \'New message\',\n\t\t\tmeta: {\n\t\t\t\tauditFlag: \'Resolver\'\n\t\t\t}\n\t\t},\n\t\t{\n\t\t\tlevel: \'error\',\n\t\t\tmessage: \'Second message\',\n\t\t\tmeta: {\n\t\t\t\tauditFlag: \'Incorrect\'\n\t\t\t}\n\t\t}\n\t]\n}\n```\n\n## Native request queries\n\n- ?sort=name will sort against any property\n- ?search=message:smith will search against a single property and value (delimited by :)\n- ?search=smith will search against any property\n- ?limit=10 will limit the results returned\n- ?skip=20 will skip a defined number of results (used in pagination)',
+17 silly publish   readmeFilename: 'README.md',
+17 silly publish   gitHead: '185a66ec055ceada9d5888be53bb7b8d2eb8d8c0',
+17 silly publish   bugs: { url: 'https://github.com/caljrimmer/sails-hook-query-builder/issues' },
+17 silly publish   homepage: 'https://github.com/caljrimmer/sails-hook-query-builder#readme',
+17 silly publish   _id: 'sails-hook-query-builder@1.0.0',
+17 silly publish   _shasum: 'a77744f1530a2d78c80fcfff0ab55e27d0d9e33d',
+17 silly publish   _from: '.' }
+18 verbose getPublishConfig undefined
+19 silly mapToRegistry name sails-hook-query-builder
+20 silly mapToRegistry using default registry
+21 silly mapToRegistry registry https://registry.npmjs.org/
+22 silly mapToRegistry uri https://registry.npmjs.org/sails-hook-query-builder
+23 verbose publish registryBase https://registry.npmjs.org/
+24 silly publish uploading /Users/callumj/.npm/sails-hook-query-builder/1.0.0/package.tgz
+25 verbose request uri https://registry.npmjs.org/sails-hook-query-builder
+26 verbose request sending authorization for write operation
+27 info attempt registry request try #1 at 1:24:13 PM
+28 verbose request using bearer token for auth
+29 verbose request id dbea20feed115813
+30 http request PUT https://registry.npmjs.org/sails-hook-query-builder
+31 http 403 https://registry.npmjs.org/sails-hook-query-builder
+32 verbose headers { 'content-type': 'application/json',
+32 verbose headers   'cache-control': 'max-age=300',
+32 verbose headers   'content-length': '95',
+32 verbose headers   'accept-ranges': 'bytes',
+32 verbose headers   date: 'Mon, 07 Mar 2016 13:24:13 GMT',
+32 verbose headers   via: '1.1 varnish',
+32 verbose headers   connection: 'keep-alive',
+32 verbose headers   'x-served-by': 'cache-lhr6320-LHR',
+32 verbose headers   'x-cache': 'MISS',
+32 verbose headers   'x-cache-hits': '0',
+32 verbose headers   'x-timer': 'S1457357052.625635,VS0,VE1320' }
+33 verbose request invalidating /Users/callumj/.npm/registry.npmjs.org/sails-hook-query-builder on PUT
+34 error publish Failed PUT 403
+35 verbose stack Error: "You cannot publish over the previously published version 1.0.0." : sails-hook-query-builder
+35 verbose stack     at makeError (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:264:12)
+35 verbose stack     at CachingRegistryClient.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:252:14)
+35 verbose stack     at Request._callback (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:172:14)
+35 verbose stack     at Request.self.callback (/usr/local/lib/node_modules/npm/node_modules/request/request.js:198:22)
+35 verbose stack     at emitTwo (events.js:88:13)
+35 verbose stack     at Request.emit (events.js:173:7)
+35 verbose stack     at Request.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1063:14)
+35 verbose stack     at emitOne (events.js:83:20)
+35 verbose stack     at Request.emit (events.js:170:7)
+35 verbose stack     at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1009:12)
+36 verbose statusCode 403
+37 verbose pkgid sails-hook-query-builder
+38 verbose cwd /Applications/MAMP/htdocs/sails-hook-query-builder
+39 error Darwin 15.2.0
+40 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "publish"
+41 error node v5.2.0
+42 error npm  v2.14.7
+43 error code E403
+44 error "You cannot publish over the previously published version 1.0.0." : sails-hook-query-builder
+45 error If you need help, you may report this error at:
+45 error     <https://github.com/npm/npm/issues>
+46 verbose exit [ 1, true ]
