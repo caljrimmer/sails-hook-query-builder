@@ -54,11 +54,15 @@ function bindQueryBuilder (model) {
     return queryBuilder;
 }
 
-function bindSearch (model) {
-	var queryBuilder = bindQueryBuilder(model);
-	function search (query) {
-		var newQuery = queryBuilder(query);
-		model.find(newQuery)
+/**
+* Returns count and data
+*/
+
+function bindQuerySearch (model) {
+    var queryBuilder = bindQueryBuilder(model);
+    function querySearch (query) {
+        var newQuery = queryBuilder(query);
+        return model.find(newQuery)
            .then(function (data) {
                return model.count(newQuery)
                    .then(function(count) {
@@ -68,8 +72,8 @@ function bindSearch (model) {
                        }
                    })
            });
-	}
-	model.search = search;
+    }
+    model.querySearch = querySearch;
 }
 
 module.exports = function(sails) {
@@ -78,13 +82,13 @@ module.exports = function(sails) {
         const keys = Object.keys(sails.models);
         keys.forEach(function(v) {
             bindQueryBuilder(sails.models[v]);
-			bindSearch(sails.models[v]);
+            bindQuerySearch(sails.models[v]);
         });
     }
 
     return {
         builder: bindQueryBuilder,
-		search: bindSearch,
+        search: bindQuerySearch,
         initialize: function(done) {
 
             //later on wait for this events
