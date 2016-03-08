@@ -99,14 +99,14 @@ will return:
             level: 'info',
             message: 'New message',
             meta: {
-                auditFlag: 'Resolver'
+                message: 'Resolver'
             }
         },
         {
             level: 'error',
             message: 'Second message',
             meta: {
-                auditFlag: 'Incorrect'
+                message: 'Incorrect'
             }
         }
     ]

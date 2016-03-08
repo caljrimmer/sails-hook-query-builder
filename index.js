@@ -1,12 +1,18 @@
 const _ = require('lodash');
 
-function bindQueryBuilder (model) {
+function bindQueryBuilder (boundModel) {
+
+    var model = boundModel;
 
     //extrat model param for testing and also to allow model amendment after initial invocation
-    function queryBuilder (queryBody, model) {
+    function queryBuilder (queryBody, newModel) {
         var builtQuery = {
             where: {}
         };
+
+        if (newModel) {
+            model = newModel;
+        }
 
         if (_.has(queryBody,'search')) {
             const searchTerm = queryBody.search.split(':');
